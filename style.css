@@ -283,6 +283,33 @@ body{
 	list-style: none;
 	margin: 0px;
 	padding: 0px;
+	position: relative;
+	cursor: ns-resize;
+	user-select: none;
+}
+
+#buttonbar::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: transparent;
+	cursor: ns-resize;
+	z-index: 10;
+}
+
+#buttonbar:hover::before {
+	background: #007acc;
+}
+
+#buttonbar.minimized {
+	cursor: default;
+}
+
+#buttonbar.minimized::before {
+	display: none;
 }
 #buttonbar li{
 	display: inline-block;
@@ -316,6 +343,59 @@ body{
 #buttonbar li#minmax a{
 	width: 40px;
 	font-weight: bold;
+	position: relative;
+}
+
+#buttonbar li#minmax a:hover {
+	background: rgb(60,64,72);
+}
+
+/* Resize handle styling */
+.resize-handle {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: transparent;
+	cursor: ns-resize;
+	z-index: 15;
+}
+
+.resize-handle:hover {
+	background: #007acc;
+}
+
+.resize-handle.active {
+	background: #007acc;
+}
+
+/* Forbedret resize oplevelse */
+#buttonbar.resizing {
+	background: rgb(30,34,42);
+}
+
+#buttonbar.resizing .resize-handle {
+	background: #007acc;
+	height: 4px;
+}
+
+/* Smooth transitions */
+#codearea {
+	transition: height 0.1s ease-out;
+}
+
+#buttonbar {
+	transition: background-color 0.2s ease;
+}
+
+/* Hover effekter for bedre UX */
+#buttonbar:hover {
+	background: rgb(45,49,57);
+}
+
+#buttonbar.minimized:hover {
+	background: rgb(40,44,52);
 }
 
 

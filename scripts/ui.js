@@ -138,6 +138,9 @@ function startGame(level, language){
 	Files.setLevel(level);
 	filesPopulate();
 	instructionsDiv.innerHTML = instructions[level-1];
+	
+	// Indlæs gemt højde for codearea
+	loadSavedHeight();
 
 	var codeBoxes = instructionsDiv.getElementsByClassName('code');
 	for (var i = 0; i < codeBoxes.length; i++) {
@@ -394,6 +397,18 @@ function openPropertiesDiv(){
 	buttonbar.classList.remove("minimized");
 }
 var oldCodeareaHeight = 0;
+var defaultCodeareaHeight = "300px";
+
+// Indlæs gemt højde fra localStorage
+function loadSavedHeight() {
+	var savedHeight = localStorage.getItem('jsrobot-codearea-height');
+	if(savedHeight) {
+		codearea.style.height = savedHeight;
+	} else {
+		codearea.style.height = defaultCodeareaHeight;
+	}
+}
+
 function minimize(){
 	buttonbar.classList.add("minimized");
 	codeDiv.style.display = "none";
@@ -401,11 +416,18 @@ function minimize(){
 	instructionsDiv.style.display = "none";
 	commandDiv.style.display = "none";
 	minmaxBtn.innerHTML = "<a>&#11027;</a>";
-  oldCodeareaHeight = codearea.style.height;
-  codearea.style.height = 35;
+	oldCodeareaHeight = codearea.style.height;
+	codearea.style.height = "35px";
 }
+
 function maximize(){
-   codearea.style.height = oldCodeareaHeight;
+	if(oldCodeareaHeight && oldCodeareaHeight !== "35px") {
+		codearea.style.height = oldCodeareaHeight;
+	} else {
+		// Hvis ingen tidligere højde, brug gemt højde eller standard
+		var savedHeight = localStorage.getItem('jsrobot-codearea-height');
+		codearea.style.height = savedHeight || defaultCodeareaHeight;
+	}
 	buttonbar.classList.remove("minimized");
 	if(commandBtn.className == "selected"){
 		openCommandDiv();
@@ -456,27 +478,69 @@ minmaxBtn.onclick = function(){
 
 var dragy = 0;
 var dragging = false;
+var isResizing = false;
+
+// Forbedret resize funktionalitet
 buttonbar.onmousedown = function(e){
-  if(codearea.style.height != '35px'){
+  if(codearea.style.height != '35px' && !buttonbar.classList.contains('minimized')){
   	dragy = e.clientY;
   	dragging = true;
+  	isResizing = true;
+  	buttonbar.classList.add('resizing');
+  	document.body.style.userSelect = 'none';
+  	e.preventDefault();
+  }
+};
+
+// Tilføj resize handle til buttonbar
+var resizeHandle = document.createElement('div');
+resizeHandle.className = 'resize-handle';
+buttonbar.appendChild(resizeHandle);
+
+resizeHandle.onmousedown = function(e){
+  if(codearea.style.height != '35px' && !buttonbar.classList.contains('minimized')){
+  	dragy = e.clientY;
+  	dragging = true;
+  	isResizing = true;
+  	resizeHandle.classList.add('active');
+  	document.body.style.userSelect = 'none';
+  	e.preventDefault();
+  	e.stopPropagation();
   }
 };
 
 onmouseup = function(e){
-	dragging = false;
-	buttonbar.style.cursor = "default";
+	if(dragging){
+		dragging = false;
+		isResizing = false;
+		buttonbar.classList.remove('resizing');
+		resizeHandle.classList.remove('active');
+		buttonbar.style.cursor = "ns-resize";
+		document.body.style.userSelect = '';
+		
+		// Gem højde i localStorage
+		localStorage.setItem('jsrobot-codearea-height', codearea.style.height);
+	}
 };
 
 onmousemove = function(e){
-	if(dragging){
+	if(dragging && isResizing){
 		buttonbar.style.cursor = "ns-resize";
+		resizeHandle.classList.add('active');
+		
 		var height = Number(codearea.style.height.replace("px",""));
 		var newheight = height + dragy - e.clientY;
-		if(newheight < 104){newheight = 104;}
-		codearea.style.height = Math.min(newheight, window.innerHeight || Infinity);
+		
+		// Minimum og maksimum højde
+		var minHeight = 104;
+		var maxHeight = Math.min(window.innerHeight * 0.8, window.innerHeight - 200);
+		
+		if(newheight < minHeight){newheight = minHeight;}
+		if(newheight > maxHeight){newheight = maxHeight;}
+		
+		codearea.style.height = newheight + "px";
 		dragy = e.clientY;
-  }
+	}
 };
 
 
@@ -504,6 +568,33 @@ onkeydown = function(e) {
 		}else if(e.keyCode == 53) {
 			openInstructionsDiv();
 			setKeyboardControl(true);
+			return false;
+		}
+	}
+	
+	// Tilføj keyboard shortcuts for resize
+	if(e.metaKey || e.ctrlKey) {
+		if(e.keyCode == 189 || e.keyCode == 109) { // Minus key
+			// Gør codearea mindre
+			var currentHeight = Number(codearea.style.height.replace("px",""));
+			var newHeight = Math.max(104, currentHeight - 50);
+			codearea.style.height = newHeight + "px";
+			localStorage.setItem('jsrobot-codearea-height', codearea.style.height);
+			e.preventDefault();
+			return false;
+		} else if(e.keyCode == 187 || e.keyCode == 107) { // Plus key
+			// Gør codearea større
+			var currentHeight = Number(codearea.style.height.replace("px",""));
+			var maxHeight = Math.min(window.innerHeight * 0.8, window.innerHeight - 200);
+			var newHeight = Math.min(maxHeight, currentHeight + 50);
+			codearea.style.height = newHeight + "px";
+			localStorage.setItem('jsrobot-codearea-height', codearea.style.height);
+			e.preventDefault();
+			return false;
+		} else if(e.keyCode == 48) { // 0 key - reset til standard størrelse
+			codearea.style.height = "300px";
+			localStorage.setItem('jsrobot-codearea-height', codearea.style.height);
+			e.preventDefault();
 			return false;
 		}
 	}
