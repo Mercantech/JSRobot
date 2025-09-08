@@ -689,42 +689,42 @@ function loop(robot) {
 
 //////////// LEVEL 4 /////////////////////////////////////////////////////////
 `
-<h1>Level 4: Betinget Bevægelse</h1>
+<h1>Level 4: Conditional Movement</h1>
 
-<p>Velkommen til Level 4! Her lærer du om <strong>betingelser</strong> og hvordan du kan få din robot til at reagere forskelligt afhængigt af hvor den befinder sig.</p>
+<p>Welcome to Level 4! Here you'll learn about <strong>conditions</strong> and how to make your robot react differently depending on where it is.</p>
 
-<h3>Hvad skal du lære?</h3>
+<h3>What will you learn?</h3>
 <ul>
-	<li><strong>If-statements:</strong> Gør noget kun hvis en betingelse er opfyldt</li>
-	<li><strong>Koordinater:</strong> Brug <code>robot.info().x</code> til at se hvor roboten er</li>
-	<li><strong>Logik:</strong> Kombiner betingelser med robot handlinger</li>
+	<li><strong>If-statements:</strong> Do something only if a condition is met</li>
+	<li><strong>Coordinates:</strong> Use <code>robot.info().x</code> to see where the robot is</li>
+	<li><strong>Logic:</strong> Combine conditions with robot actions</li>
 </ul>
 
-<h3>Opgaven</h3>
-<p>Din robot skal:</p>
+<h3>The Task</h3>
+<p>Your robot should:</p>
 <ul>
-	<li>Gå fremad normalt</li>
-	<li>Hoppe over spidser når den når koordinat 400-500</li>
-	<li>Fortsætte med at gå efter hoppet</li>
+	<li>Move forward normally</li>
+	<li>Jump over spikes when it reaches coordinates 400-500</li>
+	<li>Continue moving after the jump</li>
 </ul>
 
 <h3>Hint</h3>
-<p>Brug <code>if</code> til at tjekke robotens position:</p>
+<p>Use <code>if</code> to check the robot's position:</p>
 <div class="code">if (robot.info().x > 400) {
-	// Gør noget specielt
+	// Do something special
 } else {
-	// Gør noget normalt
+	// Do something normal
 }</div>
 
-<h3>Nye kommandoer</h3>
+<h3>New Commands</h3>
 <ul>
-	<li><code>robot.info().x</code> - Hent robotens x-koordinat</li>
-	<li><code>if (betingelse) { }</code> - Udfør kode kun hvis betingelsen er sand</li>
-	<li><code>else { }</code> - Udfør kode hvis betingelsen er falsk</li>
+	<li><code>robot.info().x</code> - Get the robot's x-coordinate</li>
+	<li><code>if (condition) { }</code> - Execute code only if condition is true</li>
+	<li><code>else { }</code> - Execute code if condition is false</li>
 </ul>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Vis Løsning</a>
+	<a id="showSolution" class="show-solution">Show Solution</a>
 	<br><br>
 	<div id="solution">
 <div class="code">function loop(robot) {
