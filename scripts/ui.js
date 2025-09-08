@@ -2,9 +2,9 @@ var menu = document.getElementById("menu");
 var play = document.getElementById("play");
 var speechbubble = document.getElementById("speechbubble");
 
-var prevlevelButton = document.getElementById("prevlevel");
-var levelButton = document.getElementById("level");
 var startButton = document.getElementById("start");
+var levelGrid = document.getElementById("level-grid");
+var levelItems = document.querySelectorAll(".level-item");
 
 var level = 1;
 var language = 'en';
@@ -64,6 +64,9 @@ requirejs(['mozart', '../data/levels', '../data/instructions'],
 
 		maxLevels = levels.length;
 		menu.style.display = "block";
+		
+		// Load completed levels
+		loadCompletedLevels();
 
 		if(location.hash.length > 0){
 			if(!isNaN(location.hash.slice(7,8))){
@@ -109,19 +112,25 @@ requirejs(['mozart', '../data/levels', '../data/instructions'],
 	}
 });
 
-prevlevelButton.onclick = function(){
-	level = Math.max(1, level - 1);
-	levelButton.innerHTML = "Level " + level;
-};
+// Level grid functionality
+levelItems.forEach(function(item, index) {
+	item.onclick = function() {
+		// Remove selected class from all items
+		levelItems.forEach(function(levelItem) {
+			levelItem.classList.remove('selected');
+		});
+		
+		// Add selected class to clicked item
+		this.classList.add('selected');
+		
+		// Update level variable
+		level = parseInt(this.getAttribute('data-level'));
+	};
+});
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
     return target.replace(new RegExp(search, 'g'), replacement);
-};
-
-levelButton.onclick = function(){
-	level = Math.min(maxLevels, level + 1);
-	levelButton.innerHTML = "Level " + level;
 };
 
 function showLevelSolution(){
@@ -138,6 +147,9 @@ function startGame(level, language){
 	Files.setLevel(level);
 	filesPopulate();
 	instructionsDiv.innerHTML = instructions[level-1];
+	
+	// Update level display in topbar
+	document.getElementById('level').innerHTML = "Level " + level;
 	
 	// Indlæs gemt højde for codearea
 	loadSavedHeight();
@@ -223,6 +235,13 @@ function getFlag(){
 		skiplevel.style.display = "block";
 	}else{
 		nextlevel.style.display = "block";
+	}
+	
+	// Mark level as completed in grid
+	var completedLevel = document.querySelector('.level-item[data-level="' + level + '"]');
+	if(completedLevel) {
+		completedLevel.classList.add('completed');
+		saveCompletedLevel(level);
 	}
 }
 
@@ -406,6 +425,26 @@ function loadSavedHeight() {
 		codearea.style.height = savedHeight;
 	} else {
 		codearea.style.height = defaultCodeareaHeight;
+	}
+}
+
+// Load completed levels from localStorage
+function loadCompletedLevels() {
+	var completedLevels = JSON.parse(localStorage.getItem('jsrobot-completed-levels') || '[]');
+	completedLevels.forEach(function(levelNum) {
+		var levelItem = document.querySelector('.level-item[data-level="' + levelNum + '"]');
+		if(levelItem) {
+			levelItem.classList.add('completed');
+		}
+	});
+}
+
+// Save completed level to localStorage
+function saveCompletedLevel(levelNum) {
+	var completedLevels = JSON.parse(localStorage.getItem('jsrobot-completed-levels') || '[]');
+	if(completedLevels.indexOf(levelNum) === -1) {
+		completedLevels.push(levelNum);
+		localStorage.setItem('jsrobot-completed-levels', JSON.stringify(completedLevels));
 	}
 }
 
