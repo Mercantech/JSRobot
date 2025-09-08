@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+
+# Docker files
+Dockerfile
+.dockerignore
+nginx.conf
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
