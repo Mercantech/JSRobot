@@ -8,7 +8,6 @@ README.md
 # Docker files
 Dockerfile
 .dockerignore
-nginx.conf
 
 # OS generated files
 .DS_Store
