@@ -689,25 +689,42 @@ function loop(robot) {
 
 //////////// LEVEL 4 /////////////////////////////////////////////////////////
 `
-<h1>Level 4</h1>
+<h1>Level 4: Betinget Bevægelse</h1>
 
-<h3>I haven't written the instructions for this level yet :(</h3>
-<h3>If you would like to help out tweet me <a href="https://twitter.com/reaalkhalil/">@reaalkhalil</a></h3>
+<p>Velkommen til Level 4! Her lærer du om <strong>betingelser</strong> og hvordan du kan få din robot til at reagere forskelligt afhængigt af hvor den befinder sig.</p>
 
-<!--
-	keyboard control
-	function name(){}
-	var name = function(){}
-	parameters
-	return
-	declaration vs expression
-	arrow
-	built-in functions: String, Number, Math, [links to Mozilla]
--->
+<h3>Hvad skal du lære?</h3>
+<ul>
+	<li><strong>If-statements:</strong> Gør noget kun hvis en betingelse er opfyldt</li>
+	<li><strong>Koordinater:</strong> Brug <code>robot.info().x</code> til at se hvor roboten er</li>
+	<li><strong>Logik:</strong> Kombiner betingelser med robot handlinger</li>
+</ul>
 
+<h3>Opgaven</h3>
+<p>Din robot skal:</p>
+<ul>
+	<li>Gå fremad normalt</li>
+	<li>Hoppe over spidser når den når koordinat 400-500</li>
+	<li>Fortsætte med at gå efter hoppet</li>
+</ul>
+
+<h3>Hint</h3>
+<p>Brug <code>if</code> til at tjekke robotens position:</p>
+<div class="code">if (robot.info().x > 400) {
+	// Gør noget specielt
+} else {
+	// Gør noget normalt
+}</div>
+
+<h3>Nye kommandoer</h3>
+<ul>
+	<li><code>robot.info().x</code> - Hent robotens x-koordinat</li>
+	<li><code>if (betingelse) { }</code> - Udfør kode kun hvis betingelsen er sand</li>
+	<li><code>else { }</code> - Udfør kode hvis betingelsen er falsk</li>
+</ul>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution" class="show-solution">Vis Løsning</a>
 	<br><br>
 	<div id="solution">
 <div class="code">function loop(robot) {
