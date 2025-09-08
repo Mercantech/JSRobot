@@ -742,7 +742,41 @@ function loop(robot) {
 
 //////////// LEVEL 5 /////////////////////////////////////////////////////////
 `
-<h1>Level 5</h1>
+<h1>Level 5: Multiple Jump Zones</h1>
+
+<p>Welcome to Level 5! This level introduces <strong>arrays</strong> and <strong>multiple conditions</strong>. You'll learn how to handle several jump zones efficiently.</p>
+
+<h3>What will you learn?</h3>
+<ul>
+	<li><strong>Arrays:</strong> Store multiple values in a single variable</li>
+	<li><strong>Variables:</strong> Use <code>let</code> to store robot position</li>
+	<li><strong>Complex conditions:</strong> Combine multiple conditions with <code>||</code> (OR)</li>
+	<li><strong>Efficiency:</strong> Write cleaner, more organized code</li>
+</ul>
+
+<h3>The Task</h3>
+<p>Your robot needs to:</p>
+<ul>
+	<li>Move forward normally</li>
+	<li>Jump over spikes in TWO different zones</li>
+	<li>Use arrays to organize the jump coordinates</li>
+</ul>
+
+<h3>New Concepts</h3>
+<ul>
+	<li><code>let variableName = value;</code> - Create a variable</li>
+	<li><code>let array = [value1, value2, value3];</code> - Create an array</li>
+	<li><code>array[0]</code> - Access first element (index 0)</li>
+	<li><code>||</code> - OR operator (either condition can be true)</li>
+</ul>
+
+<h3>Hint</h3>
+<p>Store the jump zones in an array and check if the robot is in any of them:</p>
+<div class="code">let landmarks = [360, 500, 560, 760];
+if (landmarks[0] < robotX && robotX < landmarks[1] ||
+    landmarks[2] < robotX && robotX < landmarks[3]) {
+    // Jump!
+}</div>
 
 	<br><br>
 	<a id="showSolution" class="show-solution">Show Solution</a>
@@ -766,7 +800,43 @@ function loop(robot) {
 
 //////////// LEVEL 6 /////////////////////////////////////////////////////////
 `
-<h1>Level 6</h1>
+<h1>Level 6: Coin-Based Movement</h1>
+
+<p>Welcome to Level 6! This level introduces <strong>modulo operator</strong> and <strong>dynamic movement</strong>. You'll learn how to make the robot change direction based on collected coins.</p>
+
+<h3>What will you learn?</h3>
+<ul>
+	<li><strong>Modulo operator:</strong> Use <code>%</code> to check if a number is odd or even</li>
+	<li><strong>Object properties:</strong> Modify properties of existing objects</li>
+	<li><strong>Coin counting:</strong> Use <code>robot.info().coins</code> to track collected coins</li>
+	<li><strong>Negative movement:</strong> Move backwards with negative amounts</li>
+</ul>
+
+<h3>The Task</h3>
+<p>Your robot should:</p>
+<ul>
+	<li>Move forward normally (amount: 40)</li>
+	<li>When you have an ODD number of coins, move backwards (amount: -40)</li>
+	<li>When you have an EVEN number of coins, move forwards (amount: 40)</li>
+</ul>
+
+<h3>New Concepts</h3>
+<ul>
+	<li><code>robot.info().coins</code> - Get the number of coins collected</li>
+	<li><code>%</code> - Modulo operator (remainder after division)</li>
+	<li><code>% 2 == 1</code> - Check if number is odd</li>
+	<li><code>robot.action.amount = -40</code> - Modify object property</li>
+</ul>
+
+<h3>Hint</h3>
+<p>Use modulo to check if the coin count is odd or even:</p>
+<div class="code">if (robot.info().coins % 2 == 1) {
+    // Odd number of coins - go backwards
+    robot.action.amount = -40;
+} else {
+    // Even number of coins - go forwards  
+    robot.action.amount = 40;
+}</div>
 
 	<br><br>
 	<a id="showSolution" class="show-solution">Show Solution</a>
@@ -787,7 +857,51 @@ function loop(robot) {
 
 //////////// LEVEL 7 /////////////////////////////////////////////////////////
 `
-<h1>Level 7</h1>
+<h1>Level 7: State Tracking</h1>
+
+<p>Welcome to Level 7! This level introduces <strong>state tracking</strong> and the <strong>init function</strong>. You'll learn how to remember information between game loops.</p>
+
+<h3>What will you learn?</h3>
+<ul>
+	<li><strong>Init function:</strong> Run code once when the level starts</li>
+	<li><strong>State tracking:</strong> Remember values from previous loops</li>
+	<li><strong>Change detection:</strong> Detect when values increase or decrease</li>
+	<li><strong>Robot properties:</strong> Store custom data on the robot object</li>
+</ul>
+
+<h3>The Task</h3>
+<p>Your robot should:</p>
+<ul>
+	<li>Move forward normally (amount: 40)</li>
+	<li>Jump when you collect a coin OR gain energy</li>
+	<li>Remember the previous values to detect changes</li>
+</ul>
+
+<h3>New Concepts</h3>
+<ul>
+	<li><code>function init(robot) { }</code> - Runs once at level start</li>
+	<li><code>robot.customProperty = value</code> - Store data on robot</li>
+	<li><code>robot.info().energy</code> - Get robot's energy level</li>
+	<li><code>value > oldValue</code> - Check if value increased</li>
+</ul>
+
+<h3>Hint</h3>
+<p>Track previous values and check for increases:</p>
+<div class="code">function init(robot) {
+    robot.oldCoins = 0;
+    robot.oldEnergy = 100;
+}
+
+function loop(robot) {
+    // Check if coins or energy increased
+    if (robot.info().coins > robot.oldCoins ||
+        robot.info().energy > robot.oldEnergy) {
+        // Jump!
+    }
+    // Remember current values for next loop
+    robot.oldCoins = robot.info().coins;
+    robot.oldEnergy = robot.info().energy;
+}</div>
 
 	<br><br>
 	<a id="showSolution" class="show-solution">Show Solution</a>
@@ -815,7 +929,51 @@ function loop(robot) {
 
 //////////// LEVEL 8 /////////////////////////////////////////////////////////
 `
-<h1>Level 8</h1>
+<h1>Level 8: Delayed Actions</h1>
+
+<p>Welcome to Level 8! This level introduces <strong>delayed actions</strong> and <strong>counters</strong>. You'll learn how to make the robot wait before performing an action.</p>
+
+<h3>What will you learn?</h3>
+<ul>
+	<li><strong>Counters:</strong> Track how many loops have passed</li>
+	<li><strong>Delayed logic:</strong> Perform actions after a delay</li>
+	<li><strong>Increment operators:</strong> Use <code>++</code> to increase counters</li>
+	<li><strong>Conditional counting:</strong> Only count when certain conditions are met</li>
+</ul>
+
+<h3>The Task</h3>
+<p>Your robot should:</p>
+<ul>
+	<li>Wait 5 loops after collecting a coin</li>
+	<li>Then jump once</li>
+	<li>Reset the counter when collecting the next coin</li>
+</ul>
+
+<h3>New Concepts</h3>
+<ul>
+	<li><code>counter++</code> - Increment a counter by 1</li>
+	<li><code>counter > number</code> - Check if counter exceeds a value</li>
+	<li><code>if (condition) { counter++; }</code> - Count only when condition is true</li>
+	<li><strong>Delayed execution:</strong> Wait before performing actions</li>
+</ul>
+
+<h3>Hint</h3>
+<p>Use a counter to track loops and delay the jump:</p>
+<div class="code">function init(robot) {
+    robot.iterationsAfterCoin = 0;
+}
+
+function loop(robot) {
+    // Jump after 5 loops
+    if (robot.iterationsAfterCoin > 4) {
+        robot.action = {type: 'jump', amount: 10};
+    }
+    
+    // Count loops only when you have coins
+    if (robot.info().coins > 0) {
+        robot.iterationsAfterCoin++;
+    }
+}</div>
 
 	<br><br>
 	<a id="showSolution" class="show-solution">Show Solution</a>
@@ -841,7 +999,55 @@ function loop(robot) {
 
 //////////// LEVEL 9 /////////////////////////////////////////////////////////
 `
-<h1>Level 9</h1>
+<h1>Level 9: Action Queues</h1>
+
+<p>Welcome to Level 9! This level introduces <strong>action queues</strong> and <strong>modules</strong>. You'll learn how to pre-plan a sequence of actions and execute them in order.</p>
+
+<h3>What will you learn?</h3>
+<ul>
+	<li><strong>Modules:</strong> Use <code>require()</code> to load external code</li>
+	<li><strong>Action queues:</strong> Store and execute a sequence of actions</li>
+	<li><strong>Queue operations:</strong> Push, pop, and check queue status</li>
+	<li><strong>Complex sequences:</strong> Plan multi-step robot behaviors</li>
+</ul>
+
+<h3>The Task</h3>
+<p>Your robot should:</p>
+<ul>
+	<li>Shoot 12 times</li>
+	<li>Move forward 4 steps</li>
+	<li>Jump once</li>
+	<li>Wait 5 loops</li>
+	<li>Jump again</li>
+	<li>Move forward 6 more steps</li>
+</ul>
+
+<h3>New Concepts</h3>
+<ul>
+	<li><code>require('module-name')</code> - Load external modules</li>
+	<li><code>queue.push(item, count)</code> - Add actions to queue</li>
+	<li><code>queue.pop()</code> - Get next action from queue</li>
+	<li><code>queue.empty()</code> - Check if queue has actions</li>
+	<li><code>{type: 'wait'}</code> - Wait action (do nothing)</li>
+</ul>
+
+<h3>Hint</h3>
+<p>Use the action queue to pre-plan your robot's sequence:</p>
+<div class="code">function init(robot) {
+    robot.actionQueue = require('action-queue');
+    
+    // Add actions to the queue
+    robot.actionQueue.push({type: 'shoot'}, 12);
+    robot.actionQueue.push({type: 'move', amount: 40}, 4);
+    robot.actionQueue.push({type: 'jump', amount: 10});
+    robot.actionQueue.push({type: 'wait'}, 5);
+}
+
+function loop(robot) {
+    if (!robot.actionQueue.empty()) {
+        robot.action = robot.actionQueue.pop();
+    }
+}</div>
 
 	<br><br>
 	<a id="showSolution" class="show-solution">Show Solution</a>
@@ -906,7 +1112,57 @@ function loop(robot) {
 
 //////////// LEVEL 10 /////////////////////////////////////////////////////////
 `
-<h1>Level 10</h1>
+<h1>Level 10: Advanced Navigation</h1>
+
+<p>Welcome to Level 10! This is the final level introducing <strong>event handling</strong>, <strong>collision detection</strong>, and <strong>advanced navigation</strong>. You'll learn how to make the robot interact with lifts and navigate complex environments.</p>
+
+<h3>What will you learn?</h3>
+<ul>
+	<li><strong>Event handling:</strong> Use <code>robot.on()</code> to listen for events</li>
+	<li><strong>Collision detection:</strong> Detect when robot collides with objects</li>
+	<li><strong>Distance calculations:</strong> Calculate distances between objects</li>
+	<li><strong>Complex logic:</strong> Combine multiple conditions for smart navigation</li>
+	<li><strong>Game objects:</strong> Access <code>Game.lifts</code> and other game elements</li>
+</ul>
+
+<h3>The Task</h3>
+<p>Your robot should:</p>
+<ul>
+	<li>Find the closest lift ahead of the robot</li>
+	<li>Move towards lifts when they're far away</li>
+	<li>Wait on lifts when they're moving up</li>
+	<li>Continue moving when lifts reach the top</li>
+</ul>
+
+<h3>New Concepts</h3>
+<ul>
+	<li><code>robot.on('collide', function(e){ })</code> - Listen for collision events</li>
+	<li><code>e.with.t</code> - Type of object collided with</li>
+	<li><code>Game.lifts</code> - Array of all lifts in the level</li>
+	<li><code>Math.abs()</code> - Get absolute value (distance)</li>
+	<li><code>require('find')</code> - Use custom module for finding objects</li>
+</ul>
+
+<h3>Hint</h3>
+<p>Use collision events and distance calculations for smart navigation:</p>
+<div class="code">let onLift = false;
+robot.on('collide', function(e){
+    if (e.with.t == 'lift') {
+        onLift = true;
+    }
+});
+
+let closestLift = require('find').closestNext(
+    robot.info().x, 
+    robot.info().y, 
+    Game.lifts
+);
+
+if (onLift && robot.info().y > 90) {
+    robot.action = {type: 'wait'};
+} else {
+    robot.action = {type: 'move', amount: 20};
+}</div>
 
 	<br><br>
 	<a id="showSolution" class="show-solution">Show Solution</a>
