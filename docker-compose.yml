@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  jsrobot-merc:
+    build: .
+    ports:
+      - "31415:80"  # Map local port 31415 to container port 80
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
