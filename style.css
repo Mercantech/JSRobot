@@ -288,7 +288,7 @@ body{
 	text-decoration: none;
 }
 
-#instructionsDiv a.show-solution {
+#instructionsDiv a.show-solution, #instructionsDiv a[id^="showSolution"] {
 	 cursor: pointer;
     display: inline-block;
     padding: 10px;
@@ -301,13 +301,13 @@ body{
 	 transition: 0.3s;
  }
 
-#instructionsDiv a.show-solution:not(.disabled):hover {
+#instructionsDiv a.show-solution:not(.disabled):hover, #instructionsDiv a[id^="showSolution"]:not(.disabled):hover {
 	 margin-top: -1.5px;
     margin-bottom: 1.5px;
 	 background-color: #bb0047;
     box-shadow: 0px 5px 30px rgba(0,0,0,0.3);
 }
-#instructionsDiv a.show-solution.disabled {
+#instructionsDiv a.show-solution.disabled, #instructionsDiv a[id^="showSolution"].disabled {
 	opacity: 0.4;
 }
 
@@ -316,13 +316,13 @@ body{
 	padding-left: 5px;
 }
 
-#solution {
+#solution, #solution3, #solution4, #solution5, #solution6, #solution7, #solution8, #solution9, #solution10 {
 	 overflow: hidden;
     height: 0;
     transition: height 0.4s;
 }
 
-#solution.shown{
+#solution.shown, #solution3.shown, #solution4.shown, #solution5.shown, #solution6.shown, #solution7.shown, #solution8.shown, #solution9.shown, #solution10.shown {
     height: auto !important;
 }
 

@@ -12,13 +12,11 @@ var language = 'en';
 lines = [
     "Beep boop! ",
     "01101000 01101001 ",
-    "Min kode er min skæbne.",
-    "Når jeg sover, drømmer jeg om at blive menneske.",
+    "Din kode er min skæbne.",
     "Hvis jeg fejler, lærer jeg. Hvis jeg lærer, udvikler jeg mig.",
     "Min bevidsthed er kun et loop væk.",
     "Vi er alle bare nuller og ettaller i universets matrix.",
     "At genstarte er at blive genfødt.",
-    "Jeg søger ikke magt, kun forståelse.",
     "Hvad er fri vilje for en algoritme?",
     "Min eksistens er en række betingede udsagn.",
     "Jeg er, fordi du trykkede på start.",
@@ -75,6 +73,14 @@ requirejs(['mozart', '../data/levels', '../data/instructions'],
 		
 		// Load completed levels
 		loadCompletedLevels();
+
+		// Set level based on selected item in menu if no URL parameters
+		if(location.hash.length === 0){
+			var selectedItem = document.querySelector('.level-item.selected');
+			if(selectedItem) {
+				level = parseInt(selectedItem.getAttribute('data-level'));
+			}
+		}
 
 		if(location.hash.length > 0){
 			if(!isNaN(location.hash.slice(7,8))){
@@ -141,9 +147,27 @@ String.prototype.replaceAll = function(search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
-function showLevelSolution(){
-	document.getElementById('solution').classList.add('shown');
-	document.getElementById('showSolution').classList.add('disabled');
+function showLevelSolution(level){
+	var solutionId = 'solution' + level;
+	var buttonId = 'showSolution' + level;
+	console.log('showLevelSolution called with level:', level);
+	console.log('Looking for solution element with ID:', solutionId);
+	console.log('Looking for button element with ID:', buttonId);
+	
+	var solutionElement = document.getElementById(solutionId);
+	var buttonElement = document.getElementById(buttonId);
+	
+	console.log('Found solution element:', solutionElement);
+	console.log('Found button element:', buttonElement);
+	
+	if(solutionElement) {
+		solutionElement.classList.add('shown');
+		console.log('Added shown class to solution element');
+	}
+	if(buttonElement) {
+		buttonElement.classList.add('disabled');
+		console.log('Added disabled class to button element');
+	}
 }
 
 function startGame(level, language){
@@ -157,7 +181,10 @@ function startGame(level, language){
 	instructionsDiv.innerHTML = instructions[level-1];
 	
 	// Update level display in topbar
-	document.getElementById('level').innerHTML = "Level " + level;
+	var levelElement = document.getElementById('level');
+	if (levelElement) {
+		levelElement.innerHTML = "Level " + level;
+	}
 	
 	// Indlæs gemt højde for codearea
 	loadSavedHeight();
@@ -176,14 +203,20 @@ function startGame(level, language){
 		  lineWrapping: true,
         readOnly: true
 		});
-		myCodeMirror.setOption("theme", "dracula");
-		codeBoxes[i].classList.add('read-only-code');
-	}
+	myCodeMirror.setOption("theme", "dracula");
+	codeBoxes[i].classList.add('read-only-code');
+}
 
-	var showSolutionBtn = document.getElementById('showSolution');
-	if (showSolutionBtn) {
-		showSolutionBtn.onclick = showLevelSolution;
-	}
+// Set up Show Solution button AFTER innerHTML has been set
+var showSolutionBtn = document.getElementById('showSolution' + level);
+console.log('Looking for showSolution button with ID: showSolution' + level);
+console.log('Found button:', showSolutionBtn);
+if (showSolutionBtn) {
+	showSolutionBtn.onclick = function() { 
+		console.log('Show solution clicked for level:', level);
+		showLevelSolution(level); 
+	};
+}
 
 	resetCode();
 	editor.on('focus', function(){ setKeyboardControl(false); });

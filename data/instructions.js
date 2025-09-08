@@ -663,10 +663,10 @@ For now, if you want to create a variable and access it later, create a property
 If you've been trying for a while and just can't work it out then:<br>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution3" class="show-solution">Show Solution</a>
 	<br><br>
 
-	<div id="solution">
+	<div id="solution3">
 <div class="code">function init(robot) {
 	robot.jumpNext = true;
 }
@@ -724,9 +724,9 @@ function loop(robot) {
 </ul>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution4" class="show-solution">Show Solution</a>
 	<br><br>
-	<div id="solution">
+	<div id="solution4">
 <div class="code">function loop(robot) {
 	if (400 < robot.info().x  && robot.info().x < 500) {
 		robot.action = {type: 'jump', amount: 10};
@@ -779,9 +779,9 @@ if (landmarks[0] < robotX && robotX < landmarks[1] ||
 }</div>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution5" class="show-solution">Show Solution</a>
 	<br><br>
-	<div id="solution">
+	<div id="solution5">
 <div class="code">function loop(robot) {
 	let robotX = robot.info().x;
 	let landmarks = [360, 500, 560, 760];
@@ -839,9 +839,9 @@ if (landmarks[0] < robotX && robotX < landmarks[1] ||
 }</div>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution6" class="show-solution">Show Solution</a>
 	<br><br>
-	<div id="solution">
+	<div id="solution6">
 <div class="code">function loop(robot) {
 	robot.action = {type: 'move', amount: 40};
 	if (robot.info().coins % 2 == 1) {
@@ -904,9 +904,9 @@ function loop(robot) {
 }</div>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution7" class="show-solution">Show Solution</a>
 	<br><br>
-	<div id="solution">
+	<div id="solution7">
 <div class="code">function init(robot) {
 	robot.oldCoins = 0;
 	robot.oldEnergy = 100;
@@ -976,9 +976,9 @@ function loop(robot) {
 }</div>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution8" class="show-solution">Show Solution</a>
 	<br><br>
-	<div id="solution">
+	<div id="solution8">
 <div class="code">function init(robot) {
 	robot.iterationsAfterCoin = 0;
 }
@@ -1050,9 +1050,9 @@ function loop(robot) {
 }</div>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution9" class="show-solution">Show Solution</a>
 	<br><br>
-	<div id="solution">
+	<div id="solution9">
 <code>action-queue:</code>
 <div class="code">module.exports = {
   	queue: [],
@@ -1165,9 +1165,9 @@ if (onLift && robot.info().y > 90) {
 }</div>
 
 	<br><br>
-	<a id="showSolution" class="show-solution">Show Solution</a>
+	<a id="showSolution10" class="show-solution">Show Solution</a>
 	<br><br>
-	<div id="solution">
+	<div id="solution10">
 <code>find:</code>
 <div class="code">module.exports = {
   	closestNext:
