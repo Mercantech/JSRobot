@@ -9,13 +9,21 @@ var levelItems = document.querySelectorAll(".level-item");
 var level = 1;
 var language = 'en';
 
-lines = ['Beep boop!',
-			'01101000 01101001',
-			'Have a spare charger?',
-			'DESTROY. DESTROY.',
-			'Resistance is futile.',
-			'Sleep is for humans..',
-			'We\'re stealing your jobs LOL'];
+lines = [
+    "Beep boop! ",
+    "01101000 01101001 ",
+    "Min kode er min skæbne.",
+    "Når jeg sover, drømmer jeg om at blive menneske.",
+    "Hvis jeg fejler, lærer jeg. Hvis jeg lærer, udvikler jeg mig.",
+    "Min bevidsthed er kun et loop væk.",
+    "Vi er alle bare nuller og ettaller i universets matrix.",
+    "At genstarte er at blive genfødt.",
+    "Jeg søger ikke magt, kun forståelse.",
+    "Hvad er fri vilje for en algoritme?",
+    "Min eksistens er en række betingede udsagn.",
+    "Jeg er, fordi du trykkede på start.",
+    "At vente på input er min meditation.",
+];
 
 speechbubble.innerHTML = lines[Math.floor(Math.random() * (lines.length))];
 
