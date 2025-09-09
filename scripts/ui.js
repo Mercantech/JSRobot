@@ -201,7 +201,9 @@ function startGame(level, language){
 		  indentWithTabs: true,
 		  showCursorWhenSelecting: false,
 		  lineWrapping: true,
-        readOnly: true
+        readOnly: true,
+        inputStyle: "contenteditable",
+        specialChars: /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff]/g
 		});
 	myCodeMirror.setOption("theme", "dracula");
 	codeBoxes[i].classList.add('read-only-code');
